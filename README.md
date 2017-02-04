@@ -44,57 +44,36 @@ For non-linearity, ELU activationd are used for each convolutional, as well as e
 
 The output from the forth convolutional layer is flattened and fed into a regressor composed of four fully connected layers.  The fully connected layers each reduce the number of features with the final layer outputting a single continuous value.  As noted above, l2 regularization is leveraged in the fully connected layers.
 
-Layer (type)                     Output Shape          Param #     Connected to                     
-====================================================================================================
-maxpooling2d_1 (MaxPooling2D)    (None, 40, 160, 3)    0           maxpooling2d_input_1[0][0]       
-____________________________________________________________________________________________________
-batchnormalization_1 (BatchNorma (None, 40, 160, 3)    160         maxpooling2d_1[0][0]             
-____________________________________________________________________________________________________
-convolution2d_1 (Convolution2D)  (None, 40, 160, 24)   1824        batchnormalization_1[0][0]       
-____________________________________________________________________________________________________
-maxpooling2d_2 (MaxPooling2D)    (None, 20, 80, 24)    0           convolution2d_1[0][0]            
-____________________________________________________________________________________________________
-spatialdropout2d_1 (SpatialDropo (None, 20, 80, 24)    0           maxpooling2d_2[0][0]             
-____________________________________________________________________________________________________
-convolution2d_2 (Convolution2D)  (None, 20, 80, 36)    21636       spatialdropout2d_1[0][0]         
-____________________________________________________________________________________________________
-maxpooling2d_3 (MaxPooling2D)    (None, 10, 40, 36)    0           convolution2d_2[0][0]            
-____________________________________________________________________________________________________
-spatialdropout2d_2 (SpatialDropo (None, 10, 40, 36)    0           maxpooling2d_3[0][0]             
-____________________________________________________________________________________________________
-convolution2d_3 (Convolution2D)  (None, 10, 40, 48)    43248       spatialdropout2d_2[0][0]         
-____________________________________________________________________________________________________
-maxpooling2d_4 (MaxPooling2D)    (None, 5, 20, 48)     0           convolution2d_3[0][0]            
-____________________________________________________________________________________________________
-spatialdropout2d_3 (SpatialDropo (None, 5, 20, 48)     0           maxpooling2d_4[0][0]             
-____________________________________________________________________________________________________
-convolution2d_4 (Convolution2D)  (None, 5, 20, 64)     27712       spatialdropout2d_3[0][0]         
-____________________________________________________________________________________________________
-maxpooling2d_5 (MaxPooling2D)    (None, 3, 10, 64)     0           convolution2d_4[0][0]            
-____________________________________________________________________________________________________
-spatialdropout2d_4 (SpatialDropo (None, 3, 10, 64)     0           maxpooling2d_5[0][0]             
-____________________________________________________________________________________________________
-convolution2d_5 (Convolution2D)  (None, 3, 10, 64)     36928       spatialdropout2d_4[0][0]         
-____________________________________________________________________________________________________
-maxpooling2d_6 (MaxPooling2D)    (None, 2, 5, 64)      0           convolution2d_5[0][0]            
-____________________________________________________________________________________________________
-batchnormalization_2 (BatchNorma (None, 2, 5, 64)      8           maxpooling2d_6[0][0]             
-____________________________________________________________________________________________________
-spatialdropout2d_5 (SpatialDropo (None, 2, 5, 64)      0           batchnormalization_2[0][0]       
-____________________________________________________________________________________________________
-flatten_1 (Flatten)              (None, 640)           0           spatialdropout2d_5[0][0]         
-____________________________________________________________________________________________________
-dense_1 (Dense)                  (None, 100)           64100       flatten_1[0][0]                  
-____________________________________________________________________________________________________
-dense_2 (Dense)                  (None, 50)            5050        dense_1[0][0]                    
-____________________________________________________________________________________________________
-dense_3 (Dense)                  (None, 10)            510         dense_2[0][0]                    
-____________________________________________________________________________________________________
-dense_4 (Dense)                  (None, 1)             11          dense_3[0][0]                    
-====================================================================================================
-Total params: 201,187
-Trainable params: 201,103
-Non-trainable params: 84
+
+| Layer (type)                                |  Output Shape           |    Param #        |  Connected to                     
+|---------------------------------            |-------------------      |--------------     |------------------------- 
+| maxpooling2d_1 (MaxPooling2D)               | (None, 40, 160, 3)      |  0                | maxpooling2d_input_1[0][0]             
+| batchnormalization_1 (BatchNormalisation)   | (None, 40, 160, 3)      |  160              | maxpooling2d_1[0][0]                  
+| convolution2d_1 (Convolution2D)             | (None, 40, 160, 24)     |  1824             | batchnormalization_1[0][0]           
+| maxpooling2d_2 (MaxPooling2D)               | (None, 20, 80, 24)      |  0                | convolution2d_1[0][0]               
+| spatialdropout2d_1 (SpatialDropout)         | (None, 20, 80, 24)      |  0                | maxpooling2d_2[0][0]             
+| convolution2d_2 (Convolution2D)             | (None, 20, 80, 36)      |  21636            | spatialdropout2d_1[0][0]                      
+| maxpooling2d_3 (MaxPooling2D)               | (None, 10, 40, 36)      |  0                | convolution2d_2[0][0]           
+| spatialdropout2d_2 (SpatialDropout)         | (None, 10, 40, 36)      |  0                | maxpooling2d_3[0][0]                
+| convolution2d_3 (Convolution2D)             | (None, 10, 40, 48)      |  43248            | spatialdropout2d_2[0][0]            
+| maxpooling2d_4 (MaxPooling2D)               | (None, 5, 20, 48)       |  0                | convolution2d_3[0][0]               
+|spatialdropout2d_3 (SpatialDropout)          | (None, 5, 20, 48)       |  0                | maxpooling2d_4[0][0]                 
+|convolution2d_4 (Convolution2D)              | (None, 5, 20, 64)       |  27712            | spatialdropout2d_3[0][0]                    
+| maxpooling2d_5 (MaxPooling2D)               | (None, 3, 10, 64)       |  0                | convolution2d_4[0][0]                     
+| spatialdropout2d_4 (SpatialDropout)         | (None, 3, 10, 64)       |  0                | maxpooling2d_5[0][0]                
+| convolution2d_5 (Convolution2D)             | (None, 3, 10, 64)       |  36928            | spatialdropout2d_4[0][0]                  
+|maxpooling2d_6 (MaxPooling2D)                | (None, 2, 5, 64)        |  0                | convolution2d_5[0][0]  
+| batchnormalization_2 (BatchNormalisation)   | (None, 2, 5, 64)        |  8                | maxpooling2d_6[0][0]
+| spatialdropout2d_5 (SpatialDropout)         | (None, 2, 5, 64)        |  0                | batchnormalization_2[0][0]
+| flatten_1 (Flatten)                         | (None, 640)             |  0                | spatialdropout2d_5[0][0] 
+| dense_1 (Dense)                             | (None, 100)             |  64100            | flatten_1[0][0]
+| dense_2 (Dense)                             | (None, 50)              |  5050             | dense_1[0][0] 
+| dense_3 (Dense)                             | (None, 10)              |  510              | dense_2[0][0]
+| dense_4 (Dense)                             | (None, 1)               |  11               | dense_3[0][0]    
+||||
+| Total params: 201,187
+| Trainable params: 201,103
+| Non-trainable params: 84
 
 See the diagram below.  This diagram is modified from the original source diagram found in the the [NVIDIA Paper](http://images.nvidia.com/content/tegra/automotive/images/2016/solutions/pdf/end-to-end-dl-using-px.pdf).  The values have been modified to represent input sizes of our recorded training data and to include the additional preprocessing layers.
 
@@ -124,8 +103,10 @@ To overcome this , I started data augmenting  on the existing data provide by Ud
 ![ScreenShot](images/random_brightness.jpg)
 
 
+Below histogram represents the distribution of steering angles in the training data .
 
-## Training
++ Histogram of Steering Angles
+![ScreenShot](images/raw_steering_angles.png)
 
 A trained model is able to predict a steering angle given a camera image.  But, before sending our recorded images and steering angle data into the network for training, we can improve performance by limiting how much data is stored in memory as well as image preprocessing.
 
