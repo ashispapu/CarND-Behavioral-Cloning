@@ -82,10 +82,28 @@ The output from the forth convolutional layer is flattened and fed into a regres
 
 Here , I've trained the model using the data provided by the udacity  with data augmentation techniques .
 
+## Training dataset collection and generation 
 
-## Training
 
-A trained model is able to predict a steering angle given a camera image.  But, before sending our recorded images and steering angle data into the network for training, we can improve performance by limiting how much data is stored in memory as well as image preprocessing.
+The data collected via keyboard input was very disturbed as a joystick was not available .
+
+It did not correctly record the correct maneuvers the model should make to recover from the edges of the road. 
+
+To overcome this , I started data augmenting  on the existing data provide by Udacity using several techniques, as shown below. Original Sample:
+
+![ScreenShot](images/sample_feature.jpg)
+
++ Shearing
+![ScreenShot](images/random_shear.jpg)
+
++ Cropping
+![ScreenShot](images/random_crop.jpg)
+
++ Flipping
+![ScreenShot](images/random_flip.jpg)
+
++ Adjusting Brightness 
+![ScreenShot](images/random_brightness.jpg)                 
 
 ### Image Generator
 
