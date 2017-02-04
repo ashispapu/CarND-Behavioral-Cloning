@@ -44,57 +44,28 @@ For non-linearity, ELU activationd are used for each convolutional, as well as e
 
 The output from the forth convolutional layer is flattened and fed into a regressor composed of four fully connected layers.  The fully connected layers each reduce the number of features with the final layer outputting a single continuous value.  As noted above, l2 regularization is leveraged in the fully connected layers.
 
-Layer (type)                     Output Shape          Param #     Connected to                     
-====================================================================================================
-maxpooling2d_1 (MaxPooling2D)    (None, 40, 160, 3)    0           maxpooling2d_input_1[0][0]       
-____________________________________________________________________________________________________
-batchnormalization_1 (BatchNorma (None, 40, 160, 3)    160         maxpooling2d_1[0][0]             
-____________________________________________________________________________________________________
-convolution2d_1 (Convolution2D)  (None, 40, 160, 24)   1824        batchnormalization_1[0][0]       
-____________________________________________________________________________________________________
-maxpooling2d_2 (MaxPooling2D)    (None, 20, 80, 24)    0           convolution2d_1[0][0]            
-____________________________________________________________________________________________________
-spatialdropout2d_1 (SpatialDropo (None, 20, 80, 24)    0           maxpooling2d_2[0][0]             
-____________________________________________________________________________________________________
-convolution2d_2 (Convolution2D)  (None, 20, 80, 36)    21636       spatialdropout2d_1[0][0]         
-____________________________________________________________________________________________________
-maxpooling2d_3 (MaxPooling2D)    (None, 10, 40, 36)    0           convolution2d_2[0][0]            
-____________________________________________________________________________________________________
-spatialdropout2d_2 (SpatialDropo (None, 10, 40, 36)    0           maxpooling2d_3[0][0]             
-____________________________________________________________________________________________________
-convolution2d_3 (Convolution2D)  (None, 10, 40, 48)    43248       spatialdropout2d_2[0][0]         
-____________________________________________________________________________________________________
-maxpooling2d_4 (MaxPooling2D)    (None, 5, 20, 48)     0           convolution2d_3[0][0]            
-____________________________________________________________________________________________________
-spatialdropout2d_3 (SpatialDropo (None, 5, 20, 48)     0           maxpooling2d_4[0][0]             
-____________________________________________________________________________________________________
-convolution2d_4 (Convolution2D)  (None, 5, 20, 64)     27712       spatialdropout2d_3[0][0]         
-____________________________________________________________________________________________________
-maxpooling2d_5 (MaxPooling2D)    (None, 3, 10, 64)     0           convolution2d_4[0][0]            
-____________________________________________________________________________________________________
-spatialdropout2d_4 (SpatialDropo (None, 3, 10, 64)     0           maxpooling2d_5[0][0]             
-____________________________________________________________________________________________________
-convolution2d_5 (Convolution2D)  (None, 3, 10, 64)     36928       spatialdropout2d_4[0][0]         
-____________________________________________________________________________________________________
-maxpooling2d_6 (MaxPooling2D)    (None, 2, 5, 64)      0           convolution2d_5[0][0]            
-____________________________________________________________________________________________________
-batchnormalization_2 (BatchNorma (None, 2, 5, 64)      8           maxpooling2d_6[0][0]             
-____________________________________________________________________________________________________
-spatialdropout2d_5 (SpatialDropo (None, 2, 5, 64)      0           batchnormalization_2[0][0]       
-____________________________________________________________________________________________________
-flatten_1 (Flatten)              (None, 640)           0           spatialdropout2d_5[0][0]         
-____________________________________________________________________________________________________
-dense_1 (Dense)                  (None, 100)           64100       flatten_1[0][0]                  
-____________________________________________________________________________________________________
-dense_2 (Dense)                  (None, 50)            5050        dense_1[0][0]                    
-____________________________________________________________________________________________________
-dense_3 (Dense)                  (None, 10)            510         dense_2[0][0]                    
-____________________________________________________________________________________________________
-dense_4 (Dense)                  (None, 1)             11          dense_3[0][0]                    
-====================================================================================================
-Total params: 201,187
-Trainable params: 201,103
-Non-trainable params: 84
+
+
+| Layer (type)                    | Output Shape      |    Param #   |  Connected to                     
+|---------------------------------|-------------------|--------------|------------------------- 
+| maxpooling2d_1 (MaxPooling2D)              | (None, 64, 64, 3) |    0          | lambda_input_1[0][0]             
+| convolution2d_1 (Convolution2D) | (None, 16, 16, 32)  |  6176        | lambda_1[0][0]                   
+| activation_1 (Activation)     |   (None, 16, 16, 32)   | 0           | convolution2d_1[0][0]            
+| convolution2d_2 (Convolution2D) |  (None, 4, 4, 64)     | 131136    |  activation_1[0][0]               
+| relu2 (Activation)              | (None, 4, 4, 64)     | 0          | convolution2d_2[0][0]            
+| convolution2d_3 (Convolution2D) | (None, 2, 2, 128)    | 131200     | relu2[0][0]                      
+| activation_2 (Activation)       | (None, 2, 2, 128)    | 0          | convolution2d_3[0][0]            
+| convolution2d_4 (Convolution2D) | (None, 2, 2, 128)    | 65664      | activation_2[0][0]               
+| activation_3 (Activation)       | (None, 2, 2, 128)    | 0          | convolution2d_4[0][0]            
+| flatten_1 (Flatten)          |    (None, 512)          | 0          | activation_3[0][0]               
+| dropout_1 (Dropout)           |   (None, 512)          | 0          | flatten_1[0][0]                  
+| dense_1 (Dense)                |  (None, 128)          | 65664      | dropout_1[0][0]                  
+| activation_4 (Activation)       | (None, 128)         |  0          | dense_1[0][0]                    
+| dropout_2 (Dropout)             | (None, 128)        |   0          | activation_4[0][0]               
+| dense_2 (Dense)                |  (None, 128)       |    16512      | dropout_2[0][0]                  
+| dense_3 (Dense)                |  (None, 1)        |     129        | dense_2[0][0]                    
+||||
+| Total params: 416481
 
 
 ## Data Collection
