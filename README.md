@@ -86,7 +86,7 @@ The data collected via keyboard input was very disturbed as a joystick was not a
 
 It did not correctly record the correct maneuvers the model should make to recover from the edges of the road. 
 
-To overcome this , I started data augmenting  on the existing data provide by Udacity using several techniques, as shown below. Original Sample:
+To overcome this , I started augmenting data   on the existing data provided by Udacity using several techniques, as shown below. Original Sample:
 
 ![ScreenShot](images/sample_feature.jpg)
 
