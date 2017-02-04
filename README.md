@@ -44,8 +44,6 @@ For non-linearity, ELU activationd are used for each convolutional, as well as e
 
 The output from the forth convolutional layer is flattened and fed into a regressor composed of four fully connected layers.  The fully connected layers each reduce the number of features with the final layer outputting a single continuous value.  As noted above, l2 regularization is leveraged in the fully connected layers.
 
-See the diagram below.  This diagram is modified from the original source diagram found in the the [NVIDIA Paper](http://images.nvidia.com/content/tegra/automotive/images/2016/solutions/pdf/end-to-end-dl-using-px.pdf).  The values have been modified to represent input sizes of our recorded training data and to include the additional preprocessing layers.
-
 
 
 ## Data Collection
