@@ -105,7 +105,6 @@ To overcome this , I started data augmenting  on the existing data provide by Ud
 
 Below histogram represents the distribution of steering angles in the training data .
 
-+ Histogram of Steering Angles
 ![ScreenShot](images/raw_steering_angles.png)
 
 A trained model is able to predict a steering angle given a camera image.  But, before sending our recorded images and steering angle data into the network for training, we can improve performance by limiting how much data is stored in memory as well as image preprocessing.
