@@ -50,7 +50,7 @@ See the diagram below.  This diagram is modified from the original source diagra
 
 ## Data Collection
 
-Here , I've trained the model using the data provide by the udacity  with data augmentation techniques .
+Here , I've trained the model using the data provided by the udacity  with data augmentation techniques .
 
 
 ## Training
