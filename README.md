@@ -107,7 +107,10 @@ Below histogram represents the distribution of steering angles in the training d
 
 ![ScreenShot](images/raw_steering_angles.png)
 
+I have observed when there is sharp change in brightness and the curvature of the track , Car is tending to go off the road .To avoid this we capture the images for the similar incidents and add more data for the training by moving the car back to the track .
+
 A trained model is able to predict a steering angle given a camera image.  But, before sending our recorded images and steering angle data into the network for training, we can improve performance by limiting how much data is stored in memory as well as image preprocessing.
+
 
 ### Image Generator
 
